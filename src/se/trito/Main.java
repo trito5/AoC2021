@@ -4,7 +4,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Dec01.run();
+        //Dec01.run();
+        Dec02.run();
 
     }
 }
