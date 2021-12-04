@@ -4,6 +4,8 @@ import se.trito.domain.BingoBoard;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static se.trito.utils.FileReaderUtil.toStringList;
 
@@ -39,22 +41,15 @@ public class Dec04 {
     private static int playBingo(List<String> input, int numberOfBingosStop, List<Integer> calls, List<BingoBoard> boards) {
         int score = 0;
         int boardsWithBingo = 0;
-        boolean gameOver = false;
         for (int call : calls) {
             for (BingoBoard board : boards) {
-                if (!board.isDone && board.hasNumber(call)) {
-                    if (board.hasBingo()) {
-                        boardsWithBingo++;
-                        if (boardsWithBingo == numberOfBingosStop) {
-                            score = board.calculateScore() * call;
-                            gameOver = true;
-                            break;
-                        }
+                if (!board.isDone && board.hasNumber(call) && board.hasBingo()) {
+                    boardsWithBingo++;
+                    if (boardsWithBingo == numberOfBingosStop) {
+                        score = board.calculateScore() * call;
+                        return score;
                     }
                 }
-            }
-            if (gameOver) {
-                break;
             }
         }
         return score;
@@ -62,11 +57,9 @@ public class Dec04 {
 
     private static List<Integer> getCalls(String input) {
         String[] callsString = input.split(",");
-        List<Integer> calls = new ArrayList<>();
-        for (String s : callsString) {
-            calls.add(Integer.parseInt(s));
-        }
-        return calls;
+        return Stream.of(callsString)
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
     }
 
     private static BingoBoard createBoard(List<String> input, int start) {

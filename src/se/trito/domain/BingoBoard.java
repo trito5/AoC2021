@@ -2,18 +2,18 @@ package se.trito.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class BingoBoard {
     List<List<Integer>> rows = new ArrayList<>();
     public boolean isDone = false;
 
     public void addRow(String[] input) {
-        List<Integer> row = new ArrayList<>();
-        for (String s : input) {
-            if (!s.isEmpty()) {
-                row.add(Integer.parseInt(s));
-            }
-        }
+        List<Integer> row =  Stream.of(input)
+                .filter(s -> !s.isEmpty())
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
         rows.add(row);
     }
 
@@ -66,13 +66,13 @@ public class BingoBoard {
     public int calculateScore() {
         int sum = 0;
         for (List<Integer> row : rows) {
-            for (int i : row) {
-                if (i > 0) {
-                    sum+= i;
-                }
-            }
-        }
+            sum += row.stream()
+                    .filter(i -> i > 0)
+                    .mapToInt(Integer::intValue)
+                    .sum();
+       }
         return sum;
+
     }
 
     @Override
