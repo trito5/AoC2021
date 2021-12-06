@@ -8,7 +8,8 @@ public class Main {
         //Dec02.run();
         //Dec03.run();
         //Dec04.run();
-        Dec05.run();
+        //Dec05.run();
+        Dec06.run();
 
     }
 }
