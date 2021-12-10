@@ -1,9 +1,7 @@
 package se.trito;
 
-import java.util.Arrays;
 import java.util.List;
 
-import static java.util.Arrays.sort;
 import static se.trito.utils.FileReaderUtil.toStringList;
 
 public class Dec09 {

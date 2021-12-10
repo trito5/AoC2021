@@ -34,7 +34,6 @@ public class Dec10 {
         System.out.println(sum);
     }
 
-
     public static void part2(List<String> input) {
         List<Long> sums = new ArrayList<>();
         Stack<Character> stack = new Stack<>();
@@ -66,7 +65,6 @@ public class Dec10 {
         }
         Collections.sort(sums);
         System.out.println(sums.get(sums.size() / 2));
-
     }
 
     private static boolean isBadLine(Stack<Character> stack, Map<Character, Integer> errors, char c) {
@@ -106,5 +104,4 @@ public class Dec10 {
         }
         return false;
     }
-
 }
